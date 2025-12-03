@@ -175,7 +175,7 @@ function Dashboard() {
         {/* Header */}
         <header className="header">
           <div className="header-logo">
-            <img src="/spotify-logo.svg" alt="Spotify logo" className="header-logo-img" />
+            <img src="/sakura-logo.svg" alt="Sakura flower" className="header-logo-img" />
           </div>
           <div className="header-title">
             <h1>Shannify Wrapped</h1>
@@ -218,10 +218,14 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
+      {/* Decorative Llamas */}
+      <div className="llama-left">🦙</div>
+      <div className="llama-right">🦙</div>
+      
       {/* Header */}
       <header className="header">
         <div className="header-logo">
-          <img src="/spotify-logo.svg" alt="Spotify logo" className="header-logo-img" />
+          <img src="/sakura-logo.svg" alt="Sakura flower" className="header-logo-img" />
         </div>
         <div className="header-title">
           <h1>Shannify Wrapped</h1>

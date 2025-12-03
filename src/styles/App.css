@@ -28,6 +28,56 @@ body {
   background: linear-gradient(135deg, var(--lavender-blush) 0%, var(--misty-rose) 100%);
   min-height: 100vh;
   color: var(--text-dark);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Decorative Llamas on sides */
+body::before,
+body::after {
+  content: '🦙';
+  position: fixed;
+  font-size: 8rem;
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
+  animation: float 6s ease-in-out infinite;
+}
+
+body::before {
+  left: -30px;
+  top: 20%;
+  animation-delay: 0s;
+}
+
+body::after {
+  right: -30px;
+  top: 60%;
+  animation-delay: 3s;
+}
+
+.llama-left {
+  position: fixed;
+  left: -20px;
+  top: 50%;
+  font-size: 6rem;
+  opacity: 0.12;
+  z-index: 0;
+  pointer-events: none;
+  animation: float 5s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+.llama-right {
+  position: fixed;
+  right: -20px;
+  top: 30%;
+  font-size: 6rem;
+  opacity: 0.12;
+  z-index: 0;
+  pointer-events: none;
+  animation: float 5s ease-in-out infinite;
+  animation-delay: 4s;
 }
 
 .app {
@@ -35,6 +85,8 @@ body {
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 /* Header Styles */
@@ -127,6 +179,15 @@ body {
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
 }
 
 /* Dashboard Container */

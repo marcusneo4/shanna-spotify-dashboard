@@ -497,3 +497,119 @@
 .upload-instructions a:hover {
   text-decoration: underline;
 }
+
+/* Password Protection Styles */
+.password-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 50%, #FF1493 100%);
+  padding: 20px;
+}
+
+.password-box {
+  background: var(--white);
+  padding: 50px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.password-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.password-logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.password-header h1 {
+  font-size: 2rem;
+  color: var(--primary-pink);
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.password-header p {
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.password-input {
+  padding: 15px 20px;
+  border: 2px solid var(--secondary-pink);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: var(--lavender-blush);
+  color: var(--text-dark);
+}
+
+.password-input:focus {
+  outline: none;
+  border-color: var(--primary-pink);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
+}
+
+.password-button {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, var(--primary-pink) 0%, var(--accent-pink) 100%);
+  color: var(--white);
+  box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+}
+
+.password-button:hover {
+  background: linear-gradient(135deg, var(--accent-pink) 0%, var(--deep-pink) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+}
+
+.password-button:active {
+  transform: translateY(0);
+}
+
+.password-error {
+  color: #C71585;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 10px;
+  background: #FFE4E1;
+  border-radius: 8px;
+  border: 1px solid #FF1493;
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
