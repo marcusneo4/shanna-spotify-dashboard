@@ -96,6 +96,44 @@ npm run build
 
 The built files will be in the `dist` folder.
 
+## Deploy to GitHub Pages
+
+This project is configured to automatically deploy to GitHub Pages when you push to the `main` branch.
+
+### Initial Setup
+
+1. **Create the GitHub repository** (if you haven't already):
+   - Go to https://github.com/new
+   - Create a new repository (e.g., `shanna-spotify-dashboard`)
+   - **Do not** initialize with README, .gitignore, or license
+
+2. **Push your code to GitHub**:
+   ```bash
+   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+3. **Enable GitHub Pages**:
+   - Go to your repository on GitHub
+   - Click **Settings** → **Pages**
+   - Under **Source**, select **GitHub Actions**
+   - The workflow will automatically deploy your site
+
+4. **Access your site**:
+   - After the first deployment completes, your site will be available at:
+   - `https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/`
+   - You can find the exact URL in the repository **Settings** → **Pages**
+
+### Automatic Deployment
+
+Every time you push to the `main` branch, GitHub Actions will:
+- Build your app
+- Deploy it to GitHub Pages
+- Your site will be updated automatically
+
+**Note:** The first deployment may take a few minutes. You can check the deployment status in the **Actions** tab of your repository.
+
 ## Technologies Used
 
 - **React** - UI framework
