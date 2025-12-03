@@ -22,7 +22,6 @@ import TopArtistsChart from './TopArtistsChart'
 import TopTracksChart from './TopTracksChart'
 import ListeningTrendsChart from './ListeningTrendsChart'
 import TimeOfDayChart from './TimeOfDayChart'
-import TrendPeriodButtons from './TrendPeriodButtons'
 import ChartLimitButtons from './ChartLimitButtons'
 import FilterButtons from './FilterButtons'
 import QuickActions from './QuickActions'
@@ -43,7 +42,6 @@ function Dashboard() {
   const [trendPeriod, setTrendPeriod] = useState('day')
   const [topArtistsLimit, setTopArtistsLimit] = useState(10) // fixed Top 10 artists
   const [activeView, setActiveView] = useState('stats') // 'stats' or 'charts'
-  const [chartRangeFilter, setChartRangeFilter] = useState('all') // quick range just for time-based charts
 
   // Load data function
   const loadData = async () => {
@@ -94,47 +92,6 @@ function Dashboard() {
     return data
   }, [allData, selectedYear, artistFilter])
 
-  // Extra time range filter that only affects the time-based charts (trends + hour of day)
-  const chartRangeFilteredData = useMemo(() => {
-    if (!filteredData.length || chartRangeFilter === 'all') {
-      return filteredData
-    }
-
-    // Find the latest timestamp in the already-filtered data
-    let latestDate = null
-    filteredData.forEach(item => {
-      const d = new Date(item.ts)
-      if (!isNaN(d)) {
-        if (!latestDate || d > latestDate) {
-          latestDate = d
-        }
-      }
-    })
-
-    if (!latestDate) {
-      return filteredData
-    }
-
-    const endDate = latestDate.toISOString().split('T')[0]
-    let start = null
-
-    if (chartRangeFilter === '7d') {
-      const d = new Date(latestDate)
-      d.setDate(d.getDate() - 6)
-      start = d.toISOString().split('T')[0]
-    } else if (chartRangeFilter === '30d') {
-      const d = new Date(latestDate)
-      d.setDate(d.getDate() - 29)
-      start = d.toISOString().split('T')[0]
-    } else if (chartRangeFilter === '1y') {
-      const d = new Date(latestDate)
-      d.setFullYear(d.getFullYear() - 1)
-      start = d.toISOString().split('T')[0]
-    }
-
-    return filterByDateRange(filteredData, start, endDate)
-  }, [filteredData, chartRangeFilter])
-
   // Calculate statistics
   const stats = useMemo(() => {
     if (filteredData.length === 0) {
@@ -169,10 +126,10 @@ function Dashboard() {
   const topArtists = useMemo(() => getTopArtists(filteredData, topArtistsLimit), [filteredData, topArtistsLimit])
   const topTracks = useMemo(() => getTopTracks(filteredData, 15), [filteredData])
   const listeningTrends = useMemo(
-    () => getListeningTrends(chartRangeFilteredData, trendPeriod),
-    [chartRangeFilteredData, trendPeriod]
+    () => getListeningTrends(filteredData, trendPeriod),
+    [filteredData, trendPeriod]
   )
-  const timeHeatmap = useMemo(() => getTimeOfDayHeatmap(chartRangeFilteredData), [chartRangeFilteredData])
+  const timeHeatmap = useMemo(() => getTimeOfDayHeatmap(filteredData), [filteredData])
   const skippedStats = useMemo(() => getSkippedStats(filteredData), [filteredData])
   const shuffleStats = useMemo(() => getShuffleStats(filteredData), [filteredData])
 
@@ -309,7 +266,6 @@ function Dashboard() {
                 style={{ minWidth: '200px' }}
               />
             </div>
-            <TrendPeriodButtons activePeriod={trendPeriod} onPeriodChange={setTrendPeriod} />
           </div>
 
           {availableYears.length > 0 && (
@@ -427,13 +383,13 @@ function Dashboard() {
             <TopTracksChart data={topTracks} limit={15} />
           </div>
 
-          {/* Quick time range filter just for the time-based charts below */}
+          {/* Trend period filter for the time-based charts below */}
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
             <div className="quick-filters">
               <span style={{ marginRight: '10px', fontWeight: '600', color: '#666' }}>Time Range for Trends:</span>
               <FilterButtons
-                activeFilter={chartRangeFilter}
-                onFilterChange={setChartRangeFilter}
+                activeFilter={trendPeriod}
+                onFilterChange={setTrendPeriod}
               />
             </div>
           </div>
